@@ -9,7 +9,7 @@ final gameControllerProvider =
 });
 
 final tiles = [
- 'A',
+  'A',
   'B',
   'C',
   'D',
@@ -24,7 +24,7 @@ class GameController extends StateNotifier<GameControllerState> {
     startGame();
   }
 
-  List<String> _prepareTiles(){
+  List<String> _prepareTiles() {
     final List<String> allTiles = [...tiles, ...tiles];
     allTiles.shuffle();
     return allTiles;
@@ -33,6 +33,7 @@ class GameController extends StateNotifier<GameControllerState> {
   void startGame() {
     final List<String> allTiles = _prepareTiles();
     state = state.copyWith(
+      guessCount: 0,
       tiles: allTiles
           .asMap()
           .entries
@@ -66,7 +67,6 @@ class GameController extends StateNotifier<GameControllerState> {
     );
     if (state.flippedTilesCount == 2) {
       final flippedTiles = state.tiles.where((tile) => tile.isFlipped).toList();
-
       _verifyisMatch(flippedTiles[0].id, flippedTiles[1].id);
     }
   }
@@ -80,6 +80,7 @@ class GameController extends StateNotifier<GameControllerState> {
         'Verifying match: ${state.tiles[sourceIndex].text} == ${state.tiles[targetIndex].text}');
     if (state.tiles[sourceIndex].text == state.tiles[targetIndex].text) {
       state = state.copyWith(
+        guessCount: state.guessCount,
         tiles: state.tiles.map((tile) {
           if (tile.id == state.tiles[sourceIndex].id ||
               tile.id == state.tiles[targetIndex].id) {
@@ -91,6 +92,7 @@ class GameController extends StateNotifier<GameControllerState> {
     } else {
       Future.delayed(const Duration(seconds: 1), () {
         state = state.copyWith(
+          guessCount: state.guessCount + 1,
           tiles: state.tiles.map((tile) {
             if (tile.id == state.tiles[sourceIndex].id ||
                 tile.id == state.tiles[targetIndex].id) {
@@ -104,7 +106,6 @@ class GameController extends StateNotifier<GameControllerState> {
   }
 
   void resetGame() {
-    state = const GameControllerState();
     startGame();
   }
 }

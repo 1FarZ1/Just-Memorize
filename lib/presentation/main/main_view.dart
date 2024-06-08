@@ -16,7 +16,29 @@ class MainView extends ConsumerWidget {
     ref.listen<GameControllerState>(
       gameControllerProvider,
       (prev, next) {
-        if (next.isGameOver) {
+        if (next.isLost) {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text('You Lost ! '),
+                content: Text(
+                    'Your score is ${next.score}/${next.tiles.length ~/ 2}'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      ref.read(gameControllerProvider.notifier).resetGame();
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Play Again'),
+                  ),
+                ],
+              );
+            },
+          );
+        }
+
+        if (next.isGameWon) {
           showDialog(
             context: context,
             builder: (context) {
@@ -27,7 +49,7 @@ class MainView extends ConsumerWidget {
                 actions: [
                   TextButton(
                     onPressed: () {
-                      ref.read(gameControllerProvider.notifier).startGame();
+                      ref.read(gameControllerProvider.notifier).resetGame();
                       Navigator.of(context).pop();
                     },
                     child: const Text('Play Again'),
@@ -47,7 +69,7 @@ class MainView extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () {
-              ref.read(gameControllerProvider.notifier).startGame();
+              ref.read(gameControllerProvider.notifier).resetGame();
             },
           ),
         ],
@@ -58,7 +80,14 @@ class MainView extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            //score
+            //guess count
+            Text(
+              'GuessLeft: ${10 - gameState.guessCount}',
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 20),
             Text(
               '${gameState.score}/${gameState.tiles.length ~/ 2}',
