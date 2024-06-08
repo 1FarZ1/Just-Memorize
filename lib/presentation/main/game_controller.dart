@@ -1,27 +1,22 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'game_controller_state.dart';
+import 'grid_tile.dart';
+
 final gameControllerProvider =
     StateNotifierProvider<GameController, GameControllerState>((ref) {
   return GameController();
 });
 
 final tiles = [
-  const GridTile(1, 'A'),
-  const GridTile(2, 'B'),
-  const GridTile(3, 'C'),
-  const GridTile(4, 'D'),
-  const GridTile(5, 'E'),
-  const GridTile(6, 'F'),
-  const GridTile(7, 'G'),
-  const GridTile(8, 'H'),
-  const GridTile(9, 'A'),
-  const GridTile(10, 'B'),
-  const GridTile(11, 'C'),
-  const GridTile(12, 'D'),
-  const GridTile(13, 'E'),
-  const GridTile(14, 'F'),
-  const GridTile(15, 'G'),
-  const GridTile(16, 'H'),
+ 'A',
+  'B',
+  'C',
+  'D',
+  'E',
+  'F',
+  'G',
+  'H',
 ];
 
 class GameController extends StateNotifier<GameControllerState> {
@@ -29,11 +24,20 @@ class GameController extends StateNotifier<GameControllerState> {
     startGame();
   }
 
+  List<String> _prepareTiles(){
+    final List<String> allTiles = [...tiles, ...tiles];
+    allTiles.shuffle();
+    return allTiles;
+  }
+
   void startGame() {
-    state = GameControllerState(
-      tiles: List.generate(tiles.length, (index) {
-        return GridTile(tiles[index].id - 1, tiles[index].text);
-      }),
+    final List<String> allTiles = _prepareTiles();
+    state = state.copyWith(
+      tiles: allTiles
+          .asMap()
+          .entries
+          .map((entry) => GridTile(entry.key, entry.value))
+          .toList(),
     );
   }
 
@@ -52,9 +56,9 @@ class GameController extends StateNotifier<GameControllerState> {
       return;
     }
 
-    state = GameControllerState(
+    state = state.copyWith(
       tiles: state.tiles.map((tile) {
-        if (tile.id == state.tiles[index].id) {
+        if (tile.id == index) {
           return GridTile(tile.id, tile.text, isFlipped: true);
         }
         return tile;
@@ -75,7 +79,7 @@ class GameController extends StateNotifier<GameControllerState> {
     print(
         'Verifying match: ${state.tiles[sourceIndex].text} == ${state.tiles[targetIndex].text}');
     if (state.tiles[sourceIndex].text == state.tiles[targetIndex].text) {
-      state = GameControllerState(
+      state = state.copyWith(
         tiles: state.tiles.map((tile) {
           if (tile.id == state.tiles[sourceIndex].id ||
               tile.id == state.tiles[targetIndex].id) {
@@ -86,9 +90,10 @@ class GameController extends StateNotifier<GameControllerState> {
       );
     } else {
       Future.delayed(const Duration(seconds: 1), () {
-        state = GameControllerState(
+        state = state.copyWith(
           tiles: state.tiles.map((tile) {
-            if (tile.isFlipped) {
+            if (tile.id == state.tiles[sourceIndex].id ||
+                tile.id == state.tiles[targetIndex].id) {
               return GridTile(tile.id, tile.text, isFlipped: false);
             }
             return tile;
@@ -102,29 +107,4 @@ class GameController extends StateNotifier<GameControllerState> {
     state = const GameControllerState();
     startGame();
   }
-}
-
-class GameControllerState {
-  final List<GridTile> tiles;
-
-  const GameControllerState({this.tiles = const []});
-
-  int get score => tiles.where((tile) => tile.isMatched).length ~/ 2;
-
-  bool get isGameOver => tiles.every((tile) => tile.isMatched);
-
-  bool get isGameStarted => tiles.isNotEmpty;
-
-  int get flippedTilesCount => tiles.where((tile) => tile.isFlipped).length;
-}
-
-class GridTile {
-  final int id;
-  final String text;
-  final bool isFlipped;
-  final bool isMatched;
-  const GridTile(this.id, this.text,
-      {this.isFlipped = false, this.isMatched = false});
-
-  bool get isHidden => !isFlipped && !isMatched;
 }

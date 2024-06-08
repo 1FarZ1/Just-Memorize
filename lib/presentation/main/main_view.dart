@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'card_widget.dart';
 import 'game_controller.dart';
+import 'game_controller_state.dart';
 
 class MainView extends ConsumerWidget {
   const MainView({super.key});
