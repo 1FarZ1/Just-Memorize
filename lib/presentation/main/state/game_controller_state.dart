@@ -1,4 +1,4 @@
-import 'grid_tile.dart';
+import '../widgets/grid_tile.dart';
 
 class GameControllerState {
   final List<GridTile> tiles;

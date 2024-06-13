@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'game_controller_state.dart';
-import 'grid_tile.dart';
+import '../widgets/grid_tile.dart';
 
 final gameControllerProvider =
     StateNotifierProvider<GameController, GameControllerState>((ref) {

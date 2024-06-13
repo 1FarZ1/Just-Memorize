@@ -1,16 +1,29 @@
-# memory_game
+# Just Memorize
 
-A new Flutter project.
+- A Simple and Fun memory game built with Flutter and Riverpod 
+
+## Demo Video
+
+[![Just Memorize](https://img.youtube.com/vi/1J9Z9Q1Z9ZI/0.jpg)](https://www.youtube.com/watch?v=1J9Z9Q1Z9ZI)
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+- Clone the project
+- Run `flutter pub get`
+- Run `flutter run`
 
-A few resources to get you started if this is your first Flutter project:
+# Contrubution
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Any contributions are welcome. Just fork the project and create a pull request with a brief description of your changes.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# License
+
+```
+MIT License
+
+
+```
+
+## Author
+
+- [Fares Bekkouche](https://github.com.com/1farz1)
