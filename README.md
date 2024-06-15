@@ -10,6 +10,7 @@ https://github.com/1FarZ1/just-memorize/assets/91225280/8930b7a4-8023-4c25-ad96-
 
 - main focus is  the game logic and the state management in this app rather then the UI
 - Settings is not implemented yet
+- Can Add Theming , Timer , Levels ...  on The Future
 
 ## Getting Started
 
