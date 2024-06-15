@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'presentation/main/main_view.dart';
+import 'presentation/menu/menu_view.dart';
 
 class MemoryApp extends StatelessWidget {
   const MemoryApp({super.key});
@@ -13,7 +14,7 @@ class MemoryApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MainView(),
+      home: const MenuView(),
     );
   }
 }

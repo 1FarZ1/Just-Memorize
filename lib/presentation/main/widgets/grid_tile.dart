@@ -1,9 +1,9 @@
-class GridTile {
+class AppGridTile<T> {
   final int id;
-  final String text;
+  final T child;
   final bool isFlipped;
   final bool isMatched;
-  const GridTile(this.id, this.text,
+  const AppGridTile(this.id, this.child,
       {this.isFlipped = false, this.isMatched = false});
 
   bool get isHidden => !isFlipped && !isMatched;

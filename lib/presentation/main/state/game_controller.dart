@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'game_controller_state.dart';
@@ -8,15 +9,15 @@ final gameControllerProvider =
   return GameController();
 });
 
-final tiles = [
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'H',
+final List<IconData> tiles = [
+  Icons.toys,
+  Icons.cake,
+  Icons.child_care,
+  Icons.pets,
+  Icons.school,
+  Icons.sports_soccer,
+  Icons.star,
+  Icons.beach_access,
 ];
 
 class GameController extends StateNotifier<GameControllerState> {
@@ -24,20 +25,20 @@ class GameController extends StateNotifier<GameControllerState> {
     startGame();
   }
 
-  List<String> _prepareTiles() {
-    final List<String> allTiles = [...tiles, ...tiles];
+  List<IconData> _prepareTiles() {
+    final List<IconData> allTiles = [...tiles, ...tiles];
     allTiles.shuffle();
     return allTiles;
   }
 
   void startGame() {
-    final List<String> allTiles = _prepareTiles();
+    final List<IconData> allTiles = _prepareTiles();
     state = state.copyWith(
       guessCount: 0,
       tiles: allTiles
           .asMap()
           .entries
-          .map((entry) => GridTile(entry.key, entry.value))
+          .map((entry) => AppGridTile<IconData>(entry.key, entry.value))
           .toList(),
     );
   }
@@ -60,7 +61,7 @@ class GameController extends StateNotifier<GameControllerState> {
     state = state.copyWith(
       tiles: state.tiles.map((tile) {
         if (tile.id == index) {
-          return GridTile(tile.id, tile.text, isFlipped: true);
+          return AppGridTile<IconData>(tile.id, tile.child, isFlipped: true);
         }
         return tile;
       }).toList(),
@@ -76,15 +77,13 @@ class GameController extends StateNotifier<GameControllerState> {
   }
 
   void _verifyisMatch(int sourceIndex, int targetIndex) {
-    print(
-        'Verifying match: ${state.tiles[sourceIndex].text} == ${state.tiles[targetIndex].text}');
-    if (state.tiles[sourceIndex].text == state.tiles[targetIndex].text) {
+    if (state.tiles[sourceIndex].child == state.tiles[targetIndex].child) {
       state = state.copyWith(
         guessCount: state.guessCount,
         tiles: state.tiles.map((tile) {
           if (tile.id == state.tiles[sourceIndex].id ||
               tile.id == state.tiles[targetIndex].id) {
-            return GridTile(tile.id, tile.text, isMatched: true);
+            return AppGridTile<IconData>(tile.id, tile.child, isMatched: true);
           }
           return tile;
         }).toList(),
@@ -96,7 +95,8 @@ class GameController extends StateNotifier<GameControllerState> {
           tiles: state.tiles.map((tile) {
             if (tile.id == state.tiles[sourceIndex].id ||
                 tile.id == state.tiles[targetIndex].id) {
-              return GridTile(tile.id, tile.text, isFlipped: false);
+              return AppGridTile<IconData>(tile.id, tile.child,
+                  isFlipped: false);
             }
             return tile;
           }).toList(),

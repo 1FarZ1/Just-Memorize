@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
+
 import '../widgets/grid_tile.dart';
 
 class GameControllerState {
-  final List<GridTile> tiles;
+  final List<AppGridTile<IconData>> tiles;
   final int guessCount;
 
   const GameControllerState({this.tiles = const [], this.guessCount = 0});
@@ -16,7 +18,7 @@ class GameControllerState {
 
   bool get isLost => guessCount == 10;
 
-  GameControllerState copyWith({List<GridTile>? tiles, int? guessCount}) {
+  GameControllerState copyWith({List<AppGridTile<IconData>>? tiles, int? guessCount}) {
     return GameControllerState(
       tiles: tiles ?? this.tiles,
       guessCount: guessCount ?? this.guessCount,

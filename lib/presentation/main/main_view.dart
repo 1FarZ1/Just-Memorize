@@ -90,8 +90,11 @@ class MainView extends ConsumerWidget {
           children: [
             // Guess count
             Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
               color: Colors.white,
-              elevation: 4,
+              elevation: 6,
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Text(
@@ -107,8 +110,11 @@ class MainView extends ConsumerWidget {
             const SizedBox(height: 20),
             // Score
             Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
               color: Colors.white,
-              elevation: 4,
+              elevation: 6,
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Text(
@@ -122,17 +128,16 @@ class MainView extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 20),
-            // Game grid
             ConstrainedBox(
               constraints: const BoxConstraints(maxHeight: 380),
               child: Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
+                      color: Colors.black.withOpacity(0.1),
                       blurRadius: 10,
                       spreadRadius: 2,
                     ),
@@ -147,7 +152,7 @@ class MainView extends ConsumerWidget {
                   itemCount: gameState.tiles.length,
                   itemBuilder: (context, index) {
                     return CardWidget(
-                      text: gameState.tiles[index].text,
+                      child: gameState.tiles[index].child,
                       canShow: !gameState.tiles[index].isHidden,
                       onTap: () {
                         ref
@@ -165,3 +170,4 @@ class MainView extends ConsumerWidget {
     );
   }
 }
+
