@@ -4,7 +4,7 @@
 
 ## Demo Video
 
-[![Just Memorize](https://img.youtube.com/vi/1J9Z9Q1Z9ZI/0.jpg)](https://www.youtube.com/watch?v=1J9Z9Q1Z9ZI)
+![Demo](assets/videos/demo.mp4)
 
 ## Notes
 
