@@ -34,7 +34,7 @@ class GameController extends StateNotifier<GameControllerState> {
   void startGame() {
     final List<IconData> allTiles = _prepareTiles();
     state = state.copyWith(
-      guessCount: 0,
+      guessCount: 20,
       tiles: allTiles
           .asMap()
           .entries
@@ -91,7 +91,7 @@ class GameController extends StateNotifier<GameControllerState> {
     } else {
       Future.delayed(const Duration(seconds: 1), () {
         state = state.copyWith(
-          guessCount: state.guessCount + 1,
+          guessCount: state.guessCount - 1,
           tiles: state.tiles.map((tile) {
             if (tile.id == state.tiles[sourceIndex].id ||
                 tile.id == state.tiles[targetIndex].id) {

@@ -10,11 +10,6 @@ class MenuView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Memory Game'),
-        backgroundColor: Colors.teal,
-        centerTitle: true,
-      ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -27,9 +22,8 @@ class MenuView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Title
               const Text(
-                'Memory Game',
+                'Just Memorize!',
                 style: TextStyle(
                   fontSize: 36,
                   fontWeight: FontWeight.bold,
@@ -37,7 +31,6 @@ class MenuView extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 40),
-              // Play Button
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(

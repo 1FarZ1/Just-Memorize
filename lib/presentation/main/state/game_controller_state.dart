@@ -6,7 +6,7 @@ class GameControllerState {
   final List<AppGridTile<IconData>> tiles;
   final int guessCount;
 
-  const GameControllerState({this.tiles = const [], this.guessCount = 0});
+  const GameControllerState({this.tiles = const [], this.guessCount = 20});
 
   int get score => tiles.where((tile) => tile.isMatched).length ~/ 2;
 
@@ -16,9 +16,10 @@ class GameControllerState {
 
   int get flippedTilesCount => tiles.where((tile) => tile.isFlipped).length;
 
-  bool get isLost => guessCount == 10;
+  bool get isLost => guessCount == 0;
 
-  GameControllerState copyWith({List<AppGridTile<IconData>>? tiles, int? guessCount}) {
+  GameControllerState copyWith(
+      {List<AppGridTile<IconData>>? tiles, int? guessCount}) {
     return GameControllerState(
       tiles: tiles ?? this.tiles,
       guessCount: guessCount ?? this.guessCount,

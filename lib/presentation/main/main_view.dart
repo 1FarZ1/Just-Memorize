@@ -64,10 +64,15 @@ class MainView extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Memory Game'),
+        title: const Text('Just Memorize! ',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            )),
         actions: [
           IconButton(
-            icon: const Icon(Icons.refresh),
+            icon: const Icon(Icons.refresh, color: Colors.white, size: 32),
             onPressed: () {
               ref.read(gameControllerProvider.notifier).resetGame();
             },
@@ -86,48 +91,29 @@ class MainView extends ConsumerWidget {
           ),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // Guess count
-            Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              color: Colors.white,
-              elevation: 6,
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text(
-                  'Guesses Left: ${10 - gameState.guessCount}',
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Score: ${gameState.score}',
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Colors.teal,
+                    color: Colors.white,
                   ),
                 ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            // Score
-            Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              color: Colors.white,
-              elevation: 6,
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text(
-                  'Score: ${gameState.score}/${gameState.tiles.length ~/ 2}',
+                Text(
+                  'Guesses: ${gameState.guessCount}',
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Colors.teal,
+                    color: Colors.white,
                   ),
                 ),
-              ),
+              ],
             ),
-            const SizedBox(height: 20),
             ConstrainedBox(
               constraints: const BoxConstraints(maxHeight: 380),
               child: Container(
@@ -164,10 +150,10 @@ class MainView extends ConsumerWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 50)
           ],
         ),
       ),
     );
   }
 }
-
