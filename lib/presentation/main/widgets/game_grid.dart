@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:memory_game/presentation/main/state/game_controller.dart';
-import 'package:memory_game/presentation/main/state/game_controller_state.dart';
 import 'package:memory_game/presentation/main/widgets/card_widget.dart';
 
 class GameGrid extends ConsumerWidget {

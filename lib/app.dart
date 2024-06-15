@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'presentation/main/main_view.dart';
 import 'presentation/menu/menu_view.dart';
 
 class MemoryApp extends StatelessWidget {

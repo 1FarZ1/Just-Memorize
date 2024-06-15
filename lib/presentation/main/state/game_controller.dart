@@ -73,7 +73,7 @@ class GameController extends StateNotifier<GameControllerState> {
   }
 
   void _logTiles() {
-    print('Tiles: ${state.tiles.map((tile) => tile.id).toList()}');
+    debugPrint('Tiles: ${state.tiles.map((tile) => tile.id).toList()}');
   }
 
   void _verifyisMatch(int sourceIndex, int targetIndex) {

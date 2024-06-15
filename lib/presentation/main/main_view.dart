@@ -12,8 +12,6 @@ class MainView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final gameState = ref.watch(gameControllerProvider);
-
     ref.listen<GameControllerState>(
       gameControllerProvider,
       (prev, next) {
@@ -74,6 +72,16 @@ class MainView extends ConsumerWidget {
         actions: const [
           ResetButton(),
         ],
+        leading: IconButton(
+          icon: const Icon(
+            Icons.menu,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            ref.read(gameControllerProvider.notifier).resetGame();
+            Navigator.pop(context);
+          },
+        ),
         centerTitle: true,
         backgroundColor: Colors.teal,
       ),
