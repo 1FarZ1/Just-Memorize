@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'widgets/card_widget.dart';
+import 'widgets/game_grid.dart';
 import 'state/game_controller.dart';
 import 'state/game_controller_state.dart';
+import 'widgets/reset_button.dart';
+import 'widgets/stats_header.dart';
 
 class MainView extends ConsumerWidget {
   const MainView({super.key});
@@ -70,13 +71,8 @@ class MainView extends ConsumerWidget {
               fontWeight: FontWeight.bold,
               color: Colors.white,
             )),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh, color: Colors.white, size: 32),
-            onPressed: () {
-              ref.read(gameControllerProvider.notifier).resetGame();
-            },
-          ),
+        actions: const [
+          ResetButton(),
         ],
         centerTitle: true,
         backgroundColor: Colors.teal,
@@ -90,68 +86,9 @@ class MainView extends ConsumerWidget {
             end: Alignment.bottomRight,
           ),
         ),
-        child: Column(
+        child: const Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Score: ${gameState.score}',
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                Text(
-                  'Guesses: ${gameState.guessCount}',
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxHeight: 380),
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 10,
-                      spreadRadius: 2,
-                    ),
-                  ],
-                ),
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
-                    mainAxisSpacing: 8,
-                    crossAxisSpacing: 8,
-                  ),
-                  itemCount: gameState.tiles.length,
-                  itemBuilder: (context, index) {
-                    return CardWidget(
-                      child: gameState.tiles[index].child,
-                      canShow: !gameState.tiles[index].isHidden,
-                      onTap: () {
-                        ref
-                            .read(gameControllerProvider.notifier)
-                            .flipTile(index);
-                      },
-                    );
-                  },
-                ),
-              ),
-            ),
-            const SizedBox(height: 50)
-          ],
+          children: [StatsHeader(), GameGrid(), SizedBox(height: 50)],
         ),
       ),
     );
